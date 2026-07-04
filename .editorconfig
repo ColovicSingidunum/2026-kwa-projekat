@@ -8,8 +8,14 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
+# Java i XML: tabovi (Spring konvencija, poklapa se sa spring-javaformat)
 [*.{java,xml}]
-indent_size = 4
+indent_style = tab
 
+# YAML zahteva razmake, uvlačenje od 2
+[*.{yml,yaml}]
+indent_size = 2
+
+# Markdown: ne diraj trailing razmake (dvostruki razmak = prelom reda)
 [*.md]
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
