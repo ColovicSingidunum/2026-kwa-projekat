@@ -33,6 +33,7 @@
   "private": true,
   "scripts": {
     "build": "ng build",
+    "format": "prettier --write .",
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
