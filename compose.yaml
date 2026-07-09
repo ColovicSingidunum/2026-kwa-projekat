@@ -1,0 +1,64 @@
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - data-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-net
+      - data-net
+
+  client:
+    build: ./client
+    restart: unless-stopped
+    networks:
+      - app-net
+
+  nginx:
+    build: ./nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - client
+      - server
+    networks:
+      - edge
+      - app-net
+
+networks:
+  edge:
+    driver: bridge
+  app-net:
+    driver: bridge
+    internal: true
+  data-net:
+    driver: bridge
+    internal: true
+
+volumes:
+  db-data:
