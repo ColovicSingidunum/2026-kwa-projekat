@@ -19,4 +19,8 @@ public interface ZadatakRepository extends JpaRepository<Zadatak, Long> {
 
 	long countByStatus(int status);
 
+	long countByProjekatId(Long projekatId);
+
+	long countByProjekatIdAndStatus(Long projekatId, int status);
+
 }

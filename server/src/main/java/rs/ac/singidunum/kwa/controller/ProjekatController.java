@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import rs.ac.singidunum.kwa.model.Projekat;
 import rs.ac.singidunum.kwa.model.Strana;
 import rs.ac.singidunum.kwa.repository.ProjekatRepository;
+import rs.ac.singidunum.kwa.repository.ZadatakRepository;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,14 @@ public class ProjekatController {
 
 	private final ProjekatRepository projekti;
 
-	public ProjekatController(ProjekatRepository projekti) {
+	private final ZadatakRepository zadaci;
+
+	public ProjekatController(ProjekatRepository projekti, ZadatakRepository zadaci) {
 		this.projekti = projekti;
+		this.zadaci = zadaci;
+	}
+
+	public record StatistikaProjekta(long zadaci, long novo, long uToku, long zavrseno) {
 	}
 
 	@GetMapping
@@ -36,6 +43,15 @@ public class ProjekatController {
 	@GetMapping("/{id}")
 	Projekat jedan(@PathVariable Long id) {
 		return this.projekti.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	}
+
+	@GetMapping("/{id}/statistika")
+	StatistikaProjekta statistika(@PathVariable Long id) {
+		if (!this.projekti.existsById(id)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		return new StatistikaProjekta(this.zadaci.countByProjekatId(id), this.zadaci.countByProjekatIdAndStatus(id, 0),
+				this.zadaci.countByProjekatIdAndStatus(id, 1), this.zadaci.countByProjekatIdAndStatus(id, 2));
 	}
 
 	@PostMapping
