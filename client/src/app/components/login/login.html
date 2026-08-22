@@ -1,0 +1,53 @@
+<h1>Upravljanje projektima</h1>
+<mat-card class="login">
+  <mat-card-header>
+    <mat-card-title>Prijava</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="forma" (ngSubmit)="posalji()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required autocomplete="email" />
+        @if (forma.controls.email.hasError('required')) {
+          <mat-error>Email je obavezan.</mat-error>
+        }
+        @if (forma.controls.email.hasError('email')) {
+          <mat-error>Neispravan email.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lozinka</mat-label>
+        <input
+          matInput
+          [type]="sakrivena() ? 'password' : 'text'"
+          formControlName="lozinka"
+          required
+          autocomplete="current-password"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          [attr.aria-label]="sakrivena() ? 'Prikaži lozinku' : 'Sakrij lozinku'"
+          (click)="sakrivena.set(!sakrivena())"
+        >
+          <mat-icon>{{ sakrivena() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (forma.controls.lozinka.hasError('required')) {
+          <mat-error>Lozinka je obavezna.</mat-error>
+        }
+      </mat-form-field>
+
+      <button matButton="filled" type="submit" [disabled]="forma.invalid || slanje()">
+        @if (slanje()) {
+          <mat-spinner diameter="20" />
+        } @else {
+          Prijavi se
+        }
+      </button>
+    </form>
+
+    <p class="registracija">Nemaš nalog? <a routerLink="/register">Registruj se</a>.</p>
+  </mat-card-content>
+</mat-card>

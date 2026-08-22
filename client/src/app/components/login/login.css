@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.login mat-card-title {
+  margin-bottom: 20px;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.registracija {
+  margin: 16px 0 0;
+  text-align: center;
+}

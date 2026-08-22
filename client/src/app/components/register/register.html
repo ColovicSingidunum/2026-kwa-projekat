@@ -1,0 +1,98 @@
+<h1>Upravljanje projektima</h1>
+<mat-card class="register">
+  <mat-card-header>
+    <mat-card-title>Registracija</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="forma" (ngSubmit)="posalji()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required autocomplete="email" />
+        @if (forma.controls.email.hasError('required')) {
+          <mat-error>Email je obavezan.</mat-error>
+        }
+        @if (forma.controls.email.hasError('email')) {
+          <mat-error>Neispravan email.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lozinka</mat-label>
+        <input
+          matInput
+          [type]="sakrivenaLozinka() ? 'password' : 'text'"
+          formControlName="lozinka"
+          required
+          autocomplete="new-password"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          [attr.aria-label]="sakrivenaLozinka() ? 'Prikaži lozinku' : 'Sakrij lozinku'"
+          (click)="sakrivenaLozinka.set(!sakrivenaLozinka())"
+        >
+          <mat-icon>{{ sakrivenaLozinka() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (forma.controls.lozinka.hasError('required')) {
+          <mat-error>Lozinka je obavezna.</mat-error>
+        }
+        @if (forma.controls.lozinka.hasError('minlength')) {
+          <mat-error>Najmanje 6 znakova.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ponovi lozinku</mat-label>
+        <input
+          matInput
+          [type]="sakrivenaPotvrda() ? 'password' : 'text'"
+          formControlName="potvrda"
+          [errorStateMatcher]="potvrdaMatcher"
+          required
+          autocomplete="new-password"
+        />
+        <button
+          matIconButton
+          matSuffix
+          type="button"
+          [attr.aria-label]="sakrivenaPotvrda() ? 'Prikaži lozinku' : 'Sakrij lozinku'"
+          (click)="sakrivenaPotvrda.set(!sakrivenaPotvrda())"
+        >
+          <mat-icon>{{ sakrivenaPotvrda() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (forma.controls.potvrda.hasError('required')) {
+          <mat-error>Potvrda je obavezna.</mat-error>
+        } @else if (forma.hasError('nepoklapanje')) {
+          <mat-error>Lozinke se ne poklapaju.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput formControlName="ime" required autocomplete="given-name" />
+        @if (forma.controls.ime.hasError('required')) {
+          <mat-error>Ime je obavezno.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput formControlName="prezime" required autocomplete="family-name" />
+        @if (forma.controls.prezime.hasError('required')) {
+          <mat-error>Prezime je obavezno.</mat-error>
+        }
+      </mat-form-field>
+
+      <button matButton="filled" type="submit" [disabled]="forma.invalid || slanje()">
+        @if (slanje()) {
+          <mat-spinner diameter="20" />
+        } @else {
+          Registruj se
+        }
+      </button>
+    </form>
+
+    <p class="prijava">Već imaš nalog? <a routerLink="/login">Prijavi se</a>.</p>
+  </mat-card-content>
+</mat-card>
