@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.traka {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.razmak {
+  flex: 1;
+}
+
+.korisnik {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.sadrzaj {
+  flex: 1;
+}
+
+.meni {
+  width: 220px;
+}
+
+mat-sidenav-content {
+  box-sizing: border-box;
+  padding: 24px;
+}
+
+mat-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}

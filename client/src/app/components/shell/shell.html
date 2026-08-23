@@ -1,0 +1,39 @@
+<mat-toolbar class="traka">
+  <span>Upravljanje projektima</span>
+  <span class="razmak"></span>
+  <span class="korisnik">{{ auth.trenutni()?.ime }} {{ auth.trenutni()?.prezime }}</span>
+  <button matIconButton (click)="odjava()" aria-label="Odjava">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sadrzaj">
+  <mat-sidenav class="meni" mode="side" opened>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/pocetna"
+        routerLinkActive
+        #d="routerLinkActive"
+        [activated]="d.isActive"
+      >
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Početna</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/projekti"
+        routerLinkActive
+        #p="routerLinkActive"
+        [activated]="p.isActive"
+      >
+        <mat-icon matListItemIcon>folder</mat-icon>
+        <span matListItemTitle>Projekti</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>
