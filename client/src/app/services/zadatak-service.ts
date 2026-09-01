@@ -5,8 +5,8 @@ import { Strana, PaginiranUpit, filtrirajParametre } from '../models/Strana';
 
 export interface ZadatakUpit extends PaginiranUpit {
   projekatId?: number;
-  status?: Status;
-  prioritet?: Prioritet;
+  status?: Status | '';
+  prioritet?: Prioritet | '';
 }
 
 @Injectable({ providedIn: 'root' })

@@ -32,3 +32,39 @@ body {
   --mat-snack-bar-container-color: var(--mat-sys-error);
   --mat-snack-bar-supporting-text-color: var(--mat-sys-on-error);
 }
+
+a {
+  color: var(--mat-sys-primary);
+}
+
+h1 {
+  margin: 0 0 16px;
+  font: var(--mat-sys-headline-medium);
+}
+
+h2 {
+  margin: 0;
+  font: var(--mat-sys-title-large);
+}
+
+.nazad {
+  margin: 0 0 8px -8px;
+}
+
+.opasno {
+  --mat-button-text-label-text-color: var(--mat-sys-error);
+  --mat-icon-button-icon-color: var(--mat-sys-error);
+}
+
+.tabela {
+  overflow-x: auto;
+}
+
+.tabela table {
+  width: 100%;
+}
+
+.tabela .prazno {
+  padding: 16px;
+  text-align: center;
+}

@@ -13,14 +13,15 @@ export interface Strana<T> {
 export interface PaginiranUpit {
   strana?: number;
   velicina?: VelicinaStrane;
+  sort?: string;
 }
 
 // Ulaz: objekat upita, npr. { projekatId: 5, status: 0, prioritet: undefined }
-// Izlaz: parametri bez undefined/null, uz zadržanu 0, npr. { projekatId: 5, status: 0 }
+// Izlaz: parametri bez undefined/null/'', uz zadržanu 0, npr. { projekatId: 5, status: 0 }
 export function filtrirajParametre(upit: object): Parametri {
   const params: Parametri = {};
   for (const [kljuc, vrednost] of Object.entries(upit)) {
-    if (vrednost !== undefined && vrednost !== null) {
+    if (vrednost !== undefined && vrednost !== null && vrednost !== '') {
       params[kljuc] = vrednost as string | number | boolean;
     }
   }
