@@ -1,0 +1,85 @@
+<div class="zaglavlje">
+  <h2>Zadaci</h2>
+  <a matButton="filled" [routerLink]="['/projekti', projekatId(), 'zadaci', 'novi']">
+    <mat-icon>add</mat-icon>
+    Novi zadatak
+  </a>
+</div>
+
+<div class="filteri">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="status" (selectionChange)="filtriraj()">
+      <mat-option value="">Svi</mat-option>
+      @for (s of statusi; track s[0]) {
+        <mat-option [value]="s[0]">{{ s[1] }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Prioritet</mat-label>
+    <mat-select [(ngModel)]="prioritet" (selectionChange)="filtriraj()">
+      <mat-option value="">Svi</mat-option>
+      @for (p of prioriteti; track p[0]) {
+        <mat-option [value]="p[0]">{{ p[1] }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+@if (ucitava()) {
+  <mat-progress-bar mode="indeterminate" />
+}
+
+@if (strana(); as s) {
+  <div class="tabela">
+    <table mat-table [dataSource]="s.sadrzaj" matSort (matSortChange)="sortiraj($event)">
+      <ng-container matColumnDef="opis">
+        <th mat-header-cell *matHeaderCellDef>Opis</th>
+        <td mat-cell *matCellDef="let z" class="opis">{{ z.opis }}</td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let z">
+          <span class="oznaka status-{{ z.status }}">{{ statusLabele[z.status] }}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="prioritet">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Prioritet</th>
+        <td mat-cell *matCellDef="let z">
+          <span class="oznaka prioritet-{{ z.prioritet }}">{{ prioritetLabele[z.prioritet] }}</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="akcije">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let z" class="akcije">
+          <a
+            matIconButton
+            [routerLink]="['/projekti', projekatId(), 'zadaci', z.id]"
+            aria-label="Izmeni"
+          >
+            <mat-icon>edit</mat-icon>
+          </a>
+          <button matIconButton class="opasno" (click)="obrisi(z)" aria-label="Obriši">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+      <tr mat-row *matRowDef="let z; columns: kolone"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell prazno" [attr.colspan]="kolone.length">
+          Nema zadataka.
+          <a [routerLink]="['/projekti', projekatId(), 'zadaci', 'novi']">Dodaj prvi zadatak</a>.
+        </td>
+      </tr>
+    </table>
+  </div>
+  <mat-paginator
+    [length]="s.ukupno"
+    [pageIndex]="s.broj"
+    [pageSize]="s.velicina"
+    [pageSizeOptions]="velicine"
+    (page)="promeniStranu($event)"
+  />
+}

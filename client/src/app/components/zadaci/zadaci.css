@@ -1,0 +1,63 @@
+.zaglavlje {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filteri {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filteri mat-form-field {
+  flex: 0 1 160px;
+}
+
+.opis {
+  min-width: 200px;
+}
+
+.akcije {
+  white-space: nowrap;
+  text-align: right;
+}
+
+.oznaka {
+  padding: 2px 10px;
+  border-radius: 12px;
+  font: var(--mat-sys-label-medium);
+  white-space: nowrap;
+}
+
+.status-0 {
+  background: var(--mat-sys-primary-container);
+  color: var(--mat-sys-on-primary-container);
+}
+
+.status-1 {
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+}
+
+.status-2 {
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.prioritet-0 {
+  background: var(--mat-sys-surface-variant);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.prioritet-1 {
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+}
+
+.prioritet-2 {
+  background: var(--mat-sys-error-container);
+  color: var(--mat-sys-on-error-container);
+}

@@ -1,0 +1,15 @@
+.forma {
+  max-width: 560px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.akcije {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
