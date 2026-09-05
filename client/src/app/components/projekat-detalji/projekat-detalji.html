@@ -1,0 +1,28 @@
+<a matButton class="nazad" routerLink="/projekti">
+  <mat-icon>arrow_back</mat-icon>
+  Projekti
+</a>
+
+@if (projekat(); as p) {
+  <h1>{{ p.naziv }}</h1>
+  <mat-card class="projekat">
+    <mat-card-header>
+      <mat-card-subtitle>Rok: {{ p.rokRealizacije | date }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ p.opis }}</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <a matButton [routerLink]="['/projekti', p.id, 'izmena']">
+        <mat-icon>edit</mat-icon>
+        Izmeni
+      </a>
+      <button matButton class="opasno" (click)="obrisi()">
+        <mat-icon>delete</mat-icon>
+        Obriši
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <app-zadaci [projekatId]="p.id" />
+}

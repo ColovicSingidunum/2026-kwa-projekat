@@ -1,0 +1,49 @@
+<a matButton class="nazad" [routerLink]="id() ? ['/projekti', id()] : ['/projekti']">
+  <mat-icon>arrow_back</mat-icon>
+  {{ id() ? 'Detalji projekta' : 'Projekti' }}
+</a>
+
+<h1>{{ id() ? 'Izmena projekta' : 'Novi projekat' }}</h1>
+<mat-card class="forma">
+  <mat-card-content>
+    <form [formGroup]="forma" (ngSubmit)="posalji()">
+      <mat-form-field appearance="outline">
+        <mat-label>Naziv</mat-label>
+        <input matInput formControlName="naziv" required />
+        @if (forma.controls.naziv.hasError('required')) {
+          <mat-error>Naziv je obavezan.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Opis</mat-label>
+        <textarea matInput formControlName="opis" rows="4" required></textarea>
+        @if (forma.controls.opis.hasError('required')) {
+          <mat-error>Opis je obavezan.</mat-error>
+        }
+        @if (forma.controls.opis.hasError('maxlength')) {
+          <mat-error>Najviše 2000 znakova.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rok realizacije</mat-label>
+        <input matInput type="date" formControlName="rokRealizacije" required />
+        @if (forma.controls.rokRealizacije.hasError('required')) {
+          <mat-error>Rok je obavezan.</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="akcije">
+        <a matButton [routerLink]="id() ? ['/projekti', id()] : ['/projekti']">Otkaži</a>
+        <button matButton="filled" type="submit" [disabled]="forma.invalid || slanje()">
+          @if (slanje()) {
+            <mat-spinner diameter="20" />
+          } @else {
+            Sačuvaj
+          }
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
