@@ -1,0 +1,11 @@
+h2 {
+  margin: 24px 0 12px;
+}
+
+.ukupno {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.statusi {
+  grid-template-columns: repeat(3, 1fr);
+}

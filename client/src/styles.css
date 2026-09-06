@@ -68,3 +68,44 @@ h2 {
   padding: 16px;
   text-align: center;
 }
+
+.kartice {
+  display: grid;
+  gap: 16px;
+}
+
+.kartice mat-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 8px;
+}
+
+.kartice .broj {
+  font: var(--mat-sys-display-small);
+}
+
+.kartice .naziv {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.kartice .tacka {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.kartice .status-0 {
+  background: var(--mat-sys-primary);
+}
+
+.kartice .status-1 {
+  background: var(--mat-sys-tertiary);
+}
+
+.kartice .status-2 {
+  background: var(--mat-sys-outline);
+}

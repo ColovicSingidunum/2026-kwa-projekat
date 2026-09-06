@@ -23,6 +23,35 @@ export const routes: Routes = [
         path: 'pocetna',
         loadComponent: () => import('./components/pocetna/pocetna').then((m) => m.Pocetna),
       },
+      {
+        path: 'projekti',
+        loadComponent: () => import('./components/projekti/projekti').then((m) => m.Projekti),
+      },
+      {
+        path: 'projekti/novi',
+        loadComponent: () =>
+          import('./components/projekat-forma/projekat-forma').then((m) => m.ProjekatForma),
+      },
+      {
+        path: 'projekti/:id',
+        loadComponent: () =>
+          import('./components/projekat-detalji/projekat-detalji').then((m) => m.ProjekatDetalji),
+      },
+      {
+        path: 'projekti/:id/izmena',
+        loadComponent: () =>
+          import('./components/projekat-forma/projekat-forma').then((m) => m.ProjekatForma),
+      },
+      {
+        path: 'projekti/:id/zadaci/novi',
+        loadComponent: () =>
+          import('./components/zadatak-forma/zadatak-forma').then((m) => m.ZadatakForma),
+      },
+      {
+        path: 'projekti/:id/zadaci/:zadatakId',
+        loadComponent: () =>
+          import('./components/zadatak-forma/zadatak-forma').then((m) => m.ZadatakForma),
+      },
     ],
   },
   { path: '**', redirectTo: '' },
