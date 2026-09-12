@@ -11,9 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, finalize, switchMap } from 'rxjs';
-import { Prioritet, PRIORITET_LABELE, Status, STATUS_LABELE, Zadatak } from '../../models/Zadatak';
+import { PRIORITET_LABELE, STATUS_LABELE, Zadatak } from '../../models/Zadatak';
 import { Strana, VELICINE_STRANE, VelicinaStrane } from '../../models/Strana';
-import { ZadatakService, ZadatakUpit } from '../../services/zadatak-service';
+import { ZadatakService } from '../../services/zadatak-service';
 import { ObavestenjeService } from '../../services/obavestenje-service';
 import { PotvrdaDialog } from '../potvrda-dialog/potvrda-dialog';
 
@@ -54,11 +54,18 @@ export class Zadaci implements OnInit {
 
   protected strana = signal<Strana<Zadatak> | null>(null);
   protected ucitava = signal(false);
-  protected status: Status | '' = '';
-  protected prioritet: Prioritet | '' = '';
-  private upit: ZadatakUpit = { strana: 0, velicina: 5 };
+  protected upit = this.zadaci.poslednjiUpit;
 
   ngOnInit() {
+    if (this.upit.projekatId !== this.projekatId()) {
+      Object.assign(this.upit, {
+        projekatId: this.projekatId(),
+        strana: 0,
+        status: '',
+        prioritet: '',
+      });
+      delete this.upit.sort;
+    }
     this.ucitaj();
   }
 
@@ -98,13 +105,15 @@ export class Zadaci implements OnInit {
   private ucitaj() {
     this.ucitava.set(true);
     this.zadaci
-      .query({
-        ...this.upit,
-        projekatId: this.projekatId(),
-        status: this.status,
-        prioritet: this.prioritet,
-      })
+      .query(this.upit)
       .pipe(finalize(() => this.ucitava.set(false)))
-      .subscribe((s) => this.strana.set(s));
+      .subscribe((s) => {
+        if (s.sadrzaj.length === 0 && s.broj > 0) {
+          this.upit.strana = s.broj - 1;
+          this.ucitaj();
+          return;
+        }
+        this.strana.set(s);
+      });
   }
 }

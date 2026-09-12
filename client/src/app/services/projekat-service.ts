@@ -10,6 +10,8 @@ export class ProjekatService {
   private http = inject(HttpClient);
   private url = '/api/projekti';
 
+  readonly poslednjiUpit: ProjekatUpit = { strana: 0, velicina: 5 };
+
   query(upit: ProjekatUpit = {}) {
     return this.http.get<Strana<Projekat>>(this.url, { params: filtrirajParametre(upit) });
   }

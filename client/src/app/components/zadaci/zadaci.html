@@ -9,7 +9,7 @@
 <div class="filteri">
   <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="status" (selectionChange)="filtriraj()">
+    <mat-select [(ngModel)]="upit.status" (selectionChange)="filtriraj()">
       <mat-option value="">Svi</mat-option>
       @for (s of statusi; track s[0]) {
         <mat-option [value]="s[0]">{{ s[1] }}</mat-option>
@@ -18,7 +18,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-label>Prioritet</mat-label>
-    <mat-select [(ngModel)]="prioritet" (selectionChange)="filtriraj()">
+    <mat-select [(ngModel)]="upit.prioritet" (selectionChange)="filtriraj()">
       <mat-option value="">Svi</mat-option>
       @for (p of prioriteti; track p[0]) {
         <mat-option [value]="p[0]">{{ p[1] }}</mat-option>
@@ -69,13 +69,18 @@
       <tr mat-row *matRowDef="let z; columns: kolone"></tr>
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell prazno" [attr.colspan]="kolone.length">
-          Nema zadataka.
-          <a [routerLink]="['/projekti', projekatId(), 'zadaci', 'novi']">Dodaj prvi zadatak</a>.
+          @if (upit.status !== '' || upit.prioritet !== '') {
+            Nema zadataka za izabrane filtere.
+          } @else {
+            Nema zadataka.
+            <a [routerLink]="['/projekti', projekatId(), 'zadaci', 'novi']">Dodaj prvi zadatak</a>.
+          }
         </td>
       </tr>
     </table>
   </div>
   <mat-paginator
+    showFirstLastButtons
     [length]="s.ukupno"
     [pageIndex]="s.broj"
     [pageSize]="s.velicina"

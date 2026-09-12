@@ -14,6 +14,8 @@ export class ZadatakService {
   private http = inject(HttpClient);
   private url = '/api/zadaci';
 
+  readonly poslednjiUpit: ZadatakUpit = { strana: 0, velicina: 5, status: '', prioritet: '' };
+
   query(upit: ZadatakUpit = {}) {
     return this.http.get<Strana<Zadatak>>(this.url, { params: filtrirajParametre(upit) });
   }

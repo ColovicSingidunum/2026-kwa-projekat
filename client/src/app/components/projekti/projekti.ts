@@ -32,14 +32,15 @@ export class Projekti {
   protected readonly kolone = ['naziv', 'opis', 'rokRealizacije'];
   protected strana = signal<Strana<Projekat> | null>(null);
   protected ucitava = signal(false);
-  private upit = { strana: 0, velicina: 5 as VelicinaStrane };
+  private upit = this.projekti.poslednjiUpit;
 
   constructor() {
     this.ucitaj();
   }
 
   promeniStranu(e: PageEvent) {
-    this.upit = { strana: e.pageIndex, velicina: e.pageSize as VelicinaStrane };
+    this.upit.strana = e.pageIndex;
+    this.upit.velicina = e.pageSize as VelicinaStrane;
     this.ucitaj();
   }
 
@@ -48,6 +49,13 @@ export class Projekti {
     this.projekti
       .query(this.upit)
       .pipe(finalize(() => this.ucitava.set(false)))
-      .subscribe((s) => this.strana.set(s));
+      .subscribe((s) => {
+        if (s.sadrzaj.length === 0 && s.broj > 0) {
+          this.upit.strana = s.broj - 1;
+          this.ucitaj();
+          return;
+        }
+        this.strana.set(s);
+      });
   }
 }
