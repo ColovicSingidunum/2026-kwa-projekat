@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs';
 import { Projekat } from '../../models/Projekat';
+import { StatistikaProjekta } from '../../models/Statistika';
 import { ProjekatService } from '../../services/projekat-service';
 import { ObavestenjeService } from '../../services/obavestenje-service';
 import { PotvrdaDialog } from '../potvrda-dialog/potvrda-dialog';
@@ -27,12 +28,18 @@ export class ProjekatDetalji implements OnInit {
   id = input.required({ transform: numberAttribute });
 
   protected projekat = signal<Projekat | null>(null);
+  protected statistika = signal<StatistikaProjekta | null>(null);
 
   ngOnInit() {
     this.projekti.getById(this.id()).subscribe({
       next: (p) => this.projekat.set(p),
       error: () => this.router.navigateByUrl('/projekti'),
     });
+    this.ucitajStatistiku();
+  }
+
+  ucitajStatistiku() {
+    this.projekti.statistika(this.id()).subscribe((s) => this.statistika.set(s));
   }
 
   obrisi() {

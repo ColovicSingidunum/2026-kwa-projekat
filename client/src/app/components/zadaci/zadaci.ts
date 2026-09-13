@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, input, signal } from '@angular/core';
+import { Component, OnInit, inject, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -40,6 +40,7 @@ export class Zadaci implements OnInit {
   private obavesti = inject(ObavestenjeService);
 
   projekatId = input.required<number>();
+  promena = output();
 
   protected readonly velicine = VELICINE_STRANE;
   protected readonly kolone = ['opis', 'status', 'prioritet', 'akcije'];
@@ -96,6 +97,7 @@ export class Zadaci implements OnInit {
       .subscribe({
         next: () => {
           this.obavesti.uspeh('Zadatak je obrisan.');
+          this.promena.emit();
           this.ucitaj();
         },
         error: () => this.obavesti.greska('Brisanje zadatka nije uspelo.'),

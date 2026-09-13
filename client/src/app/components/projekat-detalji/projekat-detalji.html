@@ -24,5 +24,34 @@
     </mat-card-actions>
   </mat-card>
 
-  <app-zadaci [projekatId]="p.id" />
+  @if (statistika(); as s) {
+    <div class="kartice statistika">
+      <mat-card>
+        <mat-card-content>
+          <span class="broj">{{ s.zadaci }}</span>
+          <span class="naziv">Ukupno zadataka</span>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <span class="broj">{{ s.novo }}</span>
+          <span class="naziv"><span class="tacka status-0"></span>Novo</span>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <span class="broj">{{ s.uToku }}</span>
+          <span class="naziv"><span class="tacka status-1"></span>U toku</span>
+        </mat-card-content>
+      </mat-card>
+      <mat-card>
+        <mat-card-content>
+          <span class="broj">{{ s.zavrseno }}</span>
+          <span class="naziv"><span class="tacka status-2"></span>Završeno</span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
+
+  <app-zadaci [projekatId]="p.id" (promena)="ucitajStatistiku()" />
 }

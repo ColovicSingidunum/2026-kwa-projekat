@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Projekat } from '../models/Projekat';
+import { StatistikaProjekta } from '../models/Statistika';
 import { Strana, PaginiranUpit, filtrirajParametre } from '../models/Strana';
 
 export interface ProjekatUpit extends PaginiranUpit {}
@@ -18,6 +19,10 @@ export class ProjekatService {
 
   getById(id: number) {
     return this.http.get<Projekat>(`${this.url}/${id}`);
+  }
+
+  statistika(id: number) {
+    return this.http.get<StatistikaProjekta>(`${this.url}/${id}/statistika`);
   }
 
   create(projekat: Omit<Projekat, 'id'>) {
