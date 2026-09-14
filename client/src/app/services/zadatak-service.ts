@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Zadatak, Status, Prioritet } from '../models/Zadatak';
 import { Strana, PaginiranUpit, filtrirajParametre } from '../models/Strana';
+import { Zadatak, Status, Prioritet } from '../models/Zadatak';
 
 export interface ZadatakUpit extends PaginiranUpit {
   projekatId?: number;

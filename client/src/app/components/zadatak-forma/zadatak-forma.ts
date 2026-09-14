@@ -1,17 +1,17 @@
 import { Component, OnInit, inject, input, numberAttribute, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { Prioritet, PRIORITET_LABELE, Status, STATUS_LABELE } from '../../models/Zadatak';
+import { ObavestenjeService } from '../../services/obavestenje-service';
 import { ProjekatService } from '../../services/projekat-service';
 import { ZadatakService } from '../../services/zadatak-service';
-import { ObavestenjeService } from '../../services/obavestenje-service';
 
 @Component({
   selector: 'app-zadatak-forma',

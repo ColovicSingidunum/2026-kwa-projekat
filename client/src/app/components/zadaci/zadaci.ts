@@ -1,20 +1,20 @@
 import { Component, OnInit, inject, input, output, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule, Sort } from '@angular/material/sort';
+import { RouterLink } from '@angular/router';
+import { filter, finalize, switchMap } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
-import { filter, finalize, switchMap } from 'rxjs';
-import { PRIORITET_LABELE, STATUS_LABELE, Zadatak } from '../../models/Zadatak';
+import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { Strana, VELICINE_STRANE, VelicinaStrane } from '../../models/Strana';
-import { ZadatakService } from '../../services/zadatak-service';
+import { PRIORITET_LABELE, STATUS_LABELE, Zadatak } from '../../models/Zadatak';
 import { ObavestenjeService } from '../../services/obavestenje-service';
+import { ZadatakService } from '../../services/zadatak-service';
 import { PotvrdaDialog } from '../potvrda-dialog/potvrda-dialog';
 
 @Component({

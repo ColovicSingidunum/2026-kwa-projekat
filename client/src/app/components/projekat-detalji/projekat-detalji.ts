@@ -1,15 +1,15 @@
 import { Component, OnInit, inject, input, numberAttribute, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialog } from '@angular/material/dialog';
 import { filter, switchMap } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { Projekat } from '../../models/Projekat';
 import { StatistikaProjekta } from '../../models/Statistika';
-import { ProjekatService } from '../../services/projekat-service';
 import { ObavestenjeService } from '../../services/obavestenje-service';
+import { ProjekatService } from '../../services/projekat-service';
 import { PotvrdaDialog } from '../potvrda-dialog/potvrda-dialog';
 import { Zadaci } from '../zadaci/zadaci';
 
