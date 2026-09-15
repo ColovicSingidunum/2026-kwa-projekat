@@ -4,14 +4,16 @@ import { Projekat } from '../models/Projekat';
 import { StatistikaProjekta } from '../models/Statistika';
 import { Strana, PaginiranUpit, filtrirajParametre } from '../models/Strana';
 
-export interface ProjekatUpit extends PaginiranUpit {}
+export interface ProjekatUpit extends PaginiranUpit {
+  pretraga?: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class ProjekatService {
   private http = inject(HttpClient);
   private url = '/api/projekti';
 
-  readonly poslednjiUpit: ProjekatUpit = { strana: 0, velicina: 5 };
+  readonly poslednjiUpit: ProjekatUpit = { strana: 0, velicina: 5, pretraga: '' };
 
   query(upit: ProjekatUpit = {}) {
     return this.http.get<Strana<Projekat>>(this.url, { params: filtrirajParametre(upit) });

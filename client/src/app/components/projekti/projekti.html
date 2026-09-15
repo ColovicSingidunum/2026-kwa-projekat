@@ -6,15 +6,28 @@
   </a>
 </div>
 
+<mat-form-field appearance="outline" class="pretraga" subscriptSizing="dynamic">
+  <mat-label>Pretraga</mat-label>
+  <input matInput [formControl]="pretraga" placeholder="Naziv ili opis" />
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
 @if (ucitava()) {
   <mat-progress-bar mode="indeterminate" />
 }
 
 @if (strana(); as s) {
   <div class="tabela">
-    <table mat-table [dataSource]="s.sadrzaj">
+    <table
+      mat-table
+      [dataSource]="s.sadrzaj"
+      matSort
+      [matSortActive]="sort.kolona"
+      [matSortDirection]="sort.smer"
+      (matSortChange)="sortiraj($event)"
+    >
       <ng-container matColumnDef="naziv">
-        <th mat-header-cell *matHeaderCellDef>Naziv</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Naziv</th>
         <td mat-cell *matCellDef="let p">
           <a [routerLink]="['/projekti', p.id]">{{ p.naziv }}</a>
         </td>
@@ -24,14 +37,18 @@
         <td mat-cell *matCellDef="let p" class="opis">{{ p.opis }}</td>
       </ng-container>
       <ng-container matColumnDef="rokRealizacije">
-        <th mat-header-cell *matHeaderCellDef>Rok</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rok</th>
         <td mat-cell *matCellDef="let p">{{ p.rokRealizacije | date }}</td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="kolone"></tr>
       <tr mat-row *matRowDef="let p; columns: kolone"></tr>
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell prazno" [attr.colspan]="kolone.length">
-          Nema projekata. <a routerLink="/projekti/novi">Napravi prvi projekat</a>.
+          @if (upit.pretraga) {
+            Nema projekata za zadatu pretragu.
+          } @else {
+            Nema projekata. <a routerLink="/projekti/novi">Napravi prvi projekat</a>.
+          }
         </td>
       </tr>
     </table>

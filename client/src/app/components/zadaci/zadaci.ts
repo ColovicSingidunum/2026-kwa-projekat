@@ -11,7 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { Strana, VELICINE_STRANE, VelicinaStrane } from '../../models/Strana';
+import { Strana, VELICINE_STRANE, VelicinaStrane, razloziSort } from '../../models/Strana';
 import {
   PRIORITETI,
   PRIORITET_LABELE,
@@ -58,6 +58,7 @@ export class Zadaci implements OnInit {
   protected strana = signal<Strana<Zadatak> | null>(null);
   protected ucitava = signal(false);
   protected upit = this.zadaci.poslednjiUpit;
+  protected sort = razloziSort();
 
   ngOnInit() {
     if (this.upit.projekatId !== this.projekatId()) {
@@ -69,6 +70,7 @@ export class Zadaci implements OnInit {
       });
       delete this.upit.sort;
     }
+    this.sort = razloziSort(this.upit.sort);
     this.ucitaj();
   }
 

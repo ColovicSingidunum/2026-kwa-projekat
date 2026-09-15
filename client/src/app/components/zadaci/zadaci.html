@@ -33,7 +33,14 @@
 
 @if (strana(); as s) {
   <div class="tabela">
-    <table mat-table [dataSource]="s.sadrzaj" matSort (matSortChange)="sortiraj($event)">
+    <table
+      mat-table
+      [dataSource]="s.sadrzaj"
+      matSort
+      [matSortActive]="sort.kolona"
+      [matSortDirection]="sort.smer"
+      (matSortChange)="sortiraj($event)"
+    >
       <ng-container matColumnDef="opis">
         <th mat-header-cell *matHeaderCellDef>Opis</th>
         <td mat-cell *matCellDef="let z" class="opis">{{ z.opis }}</td>

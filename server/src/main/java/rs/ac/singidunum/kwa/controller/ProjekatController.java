@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,8 +37,12 @@ public class ProjekatController {
 	}
 
 	@GetMapping
-	Strana<Projekat> lista(Pageable pageable) {
-		return Strana.od(this.projekti.findAll(pageable));
+	Strana<Projekat> lista(@RequestParam(required = false) String pretraga, Pageable pageable) {
+		if (pretraga == null || pretraga.isBlank()) {
+			return Strana.od(this.projekti.findAll(pageable));
+		}
+		return Strana
+			.od(this.projekti.findByNazivContainingIgnoreCaseOrOpisContainingIgnoreCase(pretraga, pretraga, pageable));
 	}
 
 	@GetMapping("/{id}")

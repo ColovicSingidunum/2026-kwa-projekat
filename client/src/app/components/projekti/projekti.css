@@ -10,6 +10,11 @@
   margin: 0;
 }
 
+.pretraga {
+  width: 320px;
+  margin-bottom: 16px;
+}
+
 .opis {
   max-width: 480px;
   white-space: nowrap;

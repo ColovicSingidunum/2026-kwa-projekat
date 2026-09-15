@@ -16,6 +16,11 @@ export interface PaginiranUpit {
   sort?: string;
 }
 
+export function razloziSort(sort?: string): { kolona: string; smer: 'asc' | 'desc' | '' } {
+  const [kolona = '', smer = ''] = sort?.split(',') ?? [];
+  return { kolona, smer: smer as 'asc' | 'desc' | '' };
+}
+
 // Ulaz: objekat upita, npr. { projekatId: 5, status: 0, prioritet: undefined }
 // Izlaz: parametri bez undefined/null/'', uz zadržanu 0, npr. { projekatId: 5, status: 0 }
 export function filtrirajParametre(upit: object): Parametri {
