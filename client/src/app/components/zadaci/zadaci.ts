@@ -12,7 +12,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { Strana, VELICINE_STRANE, VelicinaStrane } from '../../models/Strana';
-import { PRIORITET_LABELE, STATUS_LABELE, Zadatak } from '../../models/Zadatak';
+import {
+  PRIORITETI,
+  PRIORITET_LABELE,
+  STATUSI,
+  STATUS_LABELE,
+  Zadatak,
+} from '../../models/Zadatak';
 import { ObavestenjeService } from '../../services/obavestenje-service';
 import { ZadatakService } from '../../services/zadatak-service';
 import { PotvrdaDialog } from '../potvrda-dialog/potvrda-dialog';
@@ -44,12 +50,8 @@ export class Zadaci implements OnInit {
 
   protected readonly velicine = VELICINE_STRANE;
   protected readonly kolone = ['opis', 'status', 'prioritet', 'akcije'];
-  protected readonly statusi = Object.entries(STATUS_LABELE).map(
-    ([v, l]) => [Number(v), l] as const,
-  );
-  protected readonly prioriteti = Object.entries(PRIORITET_LABELE).map(
-    ([v, l]) => [Number(v), l] as const,
-  );
+  protected readonly statusi = STATUSI;
+  protected readonly prioriteti = PRIORITETI;
   protected readonly statusLabele: Record<number, string> = STATUS_LABELE;
   protected readonly prioritetLabele: Record<number, string> = PRIORITET_LABELE;
 

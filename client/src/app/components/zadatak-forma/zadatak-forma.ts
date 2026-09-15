@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { Prioritet, PRIORITET_LABELE, Status, STATUS_LABELE } from '../../models/Zadatak';
+import { Prioritet, PRIORITETI, Status, STATUSI } from '../../models/Zadatak';
 import { ObavestenjeService } from '../../services/obavestenje-service';
 import { ProjekatService } from '../../services/projekat-service';
 import { ZadatakService } from '../../services/zadatak-service';
@@ -39,12 +39,8 @@ export class ZadatakForma implements OnInit {
   id = input.required({ transform: numberAttribute });
   zadatakId = input(undefined, { transform: numberAttribute });
 
-  protected readonly statusi = Object.entries(STATUS_LABELE).map(
-    ([v, l]) => [Number(v), l] as const,
-  );
-  protected readonly prioriteti = Object.entries(PRIORITET_LABELE).map(
-    ([v, l]) => [Number(v), l] as const,
-  );
+  protected readonly statusi = STATUSI;
+  protected readonly prioriteti = PRIORITETI;
 
   protected nazivProjekta = signal('');
   protected slanje = signal(false);

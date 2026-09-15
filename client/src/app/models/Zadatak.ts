@@ -22,6 +22,14 @@ export const PRIORITET_LABELE: Record<Prioritet, string> = {
   [Prioritet.Visok]: 'Visok',
 };
 
+export const STATUSI = Object.entries(STATUS_LABELE).map(
+  ([v, l]) => [Number(v) as Status, l] as const,
+);
+
+export const PRIORITETI = Object.entries(PRIORITET_LABELE).map(
+  ([v, l]) => [Number(v) as Prioritet, l] as const,
+);
+
 export interface Zadatak {
   id: number;
   projekatId: number;
